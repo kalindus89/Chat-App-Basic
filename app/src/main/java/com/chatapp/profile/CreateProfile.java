@@ -1,4 +1,4 @@
-package com.chatapp.login_signup;
+package com.chatapp.profile;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,11 +33,10 @@ import com.google.firebase.storage.UploadTask;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 
-public class SetProfile extends AppCompatActivity {
+public class CreateProfile extends AppCompatActivity {
 
     ImageView getuserimageinimageview;
     CardView getuserimage;
@@ -185,7 +184,7 @@ public class SetProfile extends AppCompatActivity {
 
                 progressbarofsetProfile.setVisibility(View.INVISIBLE);
                 saveProfile.setEnabled(true);
-                Intent intent = new Intent(SetProfile.this, ChatActivity.class);
+                Intent intent = new Intent(CreateProfile.this, ChatActivity.class);
                 startActivity(intent);
                 finish();
             }

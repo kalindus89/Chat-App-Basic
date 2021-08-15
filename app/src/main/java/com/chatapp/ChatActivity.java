@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.chatapp.login_signup.LoginActivity;
+import com.chatapp.profile.ProfileActivity;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 
@@ -26,7 +27,6 @@ public class ChatActivity extends AppCompatActivity {
     PagerAdapter pagerAdapter;
     ViewPager viewPager;
     Toolbar toolBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

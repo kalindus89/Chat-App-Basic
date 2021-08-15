@@ -13,8 +13,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chatapp.ChatActivity;
 import com.chatapp.R;
+import com.chatapp.profile.CreateProfile;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -93,7 +93,7 @@ public class OtpAuthentication extends AppCompatActivity {
 
                     Toast.makeText(getApplicationContext(), "Login Success", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(OtpAuthentication.this, SetProfile.class);
+                    Intent intent = new Intent(OtpAuthentication.this, CreateProfile.class);
                     startActivity(intent);
                     finish();
 
