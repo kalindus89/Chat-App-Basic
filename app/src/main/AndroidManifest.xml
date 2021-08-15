@@ -10,6 +10,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatAppBasic">
         <activity
+            android:name=".ChatActivity"
+            android:exported="true" />
+        <activity
+            android:name=".login_signup.SetProfile"
+            android:exported="true" />
+        <activity
+            android:name=".login_signup.OtpAuthentication"
+            android:exported="true" />
+        <activity
+            android:name=".login_signup.LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".SplashActivity"
             android:exported="true">
             <intent-filter>
