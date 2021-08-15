@@ -10,6 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChatAppBasic">
         <activity
+            android:name=".ProfileActivity"
+            android:exported="true" />
+        <activity
             android:name=".ChatActivity"
             android:exported="true" />
         <activity

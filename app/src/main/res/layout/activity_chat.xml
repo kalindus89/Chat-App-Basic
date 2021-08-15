@@ -32,7 +32,7 @@
     </androidx.appcompat.widget.Toolbar>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/include"
+        android:id="@+id/tabLayout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:layout_below="@id/toolBar"
@@ -66,6 +66,6 @@
         android:id="@+id/fragmentContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/include"/>
+        android:layout_below="@id/tabLayout"/>
 
 </RelativeLayout>
