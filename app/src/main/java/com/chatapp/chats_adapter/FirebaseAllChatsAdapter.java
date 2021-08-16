@@ -51,7 +51,7 @@ public class FirebaseAllChatsAdapter extends FirestoreRecyclerAdapter<ChatsModel
             public void onClick(View view) {
                 Intent intent=new Intent(context, SpecificChatActivity.class);
                 intent.putExtra("name",model.getName());
-                intent.putExtra("receiveruids",model.getUid());
+                intent.putExtra("receiveruid",model.getUid());
                 intent.putExtra("imageuri",model.getImage());
                 context.startActivity(intent);
             }

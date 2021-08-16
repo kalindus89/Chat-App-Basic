@@ -3,6 +3,7 @@ package com.chatapp.specific_chat;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
@@ -19,10 +20,15 @@ import com.chatapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -48,6 +54,9 @@ public class SpecificChatActivity extends AppCompatActivity {
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
 
+    SpecificMessageAdapter messagesAdapter;
+    ArrayList<SpecificChatModel> messagesArrayList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,6 +72,8 @@ public class SpecificChatActivity extends AppCompatActivity {
         specificuserimageinimageview = findViewById(R.id.specificuserimageinimageview);
         backbuttonofspecificchat = findViewById(R.id.backbuttonofspecificchat);
         recyclerviewofspecific = findViewById(R.id.recyclerviewofspecific);
+
+
 
         intent = getIntent();
 
@@ -132,7 +143,50 @@ public class SpecificChatActivity extends AppCompatActivity {
             }
         });
 
+        messagesArrayList=new ArrayList<>();
+        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager.setStackFromEnd(true); // start list from end
+        recyclerviewofspecific.setLayoutManager(linearLayoutManager);
+        messagesAdapter=new SpecificMessageAdapter(SpecificChatActivity.this,messagesArrayList);
+        recyclerviewofspecific.setAdapter(messagesAdapter);
+
+
+        DatabaseReference databaseReference=firebaseDatabase.getReference().child("chats").child(senderroom).child("messages");
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                messagesArrayList.clear();
+                for(DataSnapshot snapshot1:snapshot.getChildren())
+                {
+                    SpecificChatModel messages=snapshot1.getValue(SpecificChatModel.class);
+                    messagesArrayList.add(messages);
+                }
+                messagesAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+    }
+    @Override
+    public void onStart() {
+        super.onStart();
+        messagesAdapter.notifyDataSetChanged();
+        recyclerviewofspecific.setAdapter(messagesAdapter);
     }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        if(messagesAdapter!=null)
+        {
+            messagesAdapter.notifyDataSetChanged();
+        }
+    }
 
 }
