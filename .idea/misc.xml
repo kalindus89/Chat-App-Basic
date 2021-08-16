@@ -7,6 +7,7 @@
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.2703125" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2703125" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/messagebackgroun.xml" value="0.2703125" />
+        <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/senderchatdrawable.xml" value="0.2703125" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/activity_chat.xml" value="0.16666666666666666" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/activity_otp_authentication.xml" value="0.264" />
@@ -19,6 +20,8 @@
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/fragment_call.xml" value="0.18704710144927536" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/fragment_chatl.xml" value="0.18704710144927536" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/fragment_status.xml" value="0.18704710144927536" />
+        <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/recieverchatlayout.xml" value="0.21557971014492755" />
+        <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/senderchatlayout.xml" value="0.21557971014492755" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/menu/menu.xml" value="0.25416666666666665" />
       </map>
     </option>

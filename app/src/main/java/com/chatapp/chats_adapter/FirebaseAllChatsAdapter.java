@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chatapp.R;
-import com.chatapp.SpecificChat;
+import com.chatapp.specific_chat.SpecificChatActivity;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.squareup.picasso.Picasso;
@@ -49,9 +49,9 @@ public class FirebaseAllChatsAdapter extends FirestoreRecyclerAdapter<ChatsModel
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context, SpecificChat.class);
+                Intent intent=new Intent(context, SpecificChatActivity.class);
                 intent.putExtra("name",model.getName());
-                intent.putExtra("receiveruid",model.getUid());
+                intent.putExtra("receiveruids",model.getUid());
                 intent.putExtra("imageuri",model.getImage());
                 context.startActivity(intent);
             }
