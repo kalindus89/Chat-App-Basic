@@ -97,7 +97,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if(uriTemp!=null && !viewusername.getText().toString().isEmpty()) {
-                    Intent intent = new Intent(ProfileActivity.this, UpdateProfile.class);
+                    Intent intent = new Intent(ProfileActivity.this, UpdateProfileActivity.class);
                     intent.putExtra("nameCurrent", viewusername.getText().toString());
                     intent.putExtra("uriCurrent", uriTemp);
                     startActivity(intent);
@@ -110,4 +110,5 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }
+
 }

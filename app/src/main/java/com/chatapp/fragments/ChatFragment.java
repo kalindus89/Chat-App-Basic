@@ -49,8 +49,9 @@ public class ChatFragment extends Fragment {
     }
 
     public void syncDataFromFirebase(){
-        Query query = firebaseFirestore.collection("Users");
 
+        //all chatlist without account owner
+        Query query = firebaseFirestore.collection("Users").whereNotEqualTo("uid",firebaseAuth.getUid());
         FirestoreRecyclerOptions<ChatsModel> allChats = new FirestoreRecyclerOptions.Builder<ChatsModel>().setQuery(query, ChatsModel.class).build();
 
         allChatsAdapter = new FirebaseAllChatsAdapter(getContext(),allChats);

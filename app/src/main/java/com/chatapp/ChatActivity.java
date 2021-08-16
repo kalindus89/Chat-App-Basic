@@ -17,8 +17,12 @@ import android.widget.Toast;
 
 import com.chatapp.login_signup.LoginActivity;
 import com.chatapp.profile.ProfileActivity;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -27,6 +31,10 @@ public class ChatActivity extends AppCompatActivity {
     PagerAdapter pagerAdapter;
     ViewPager viewPager;
     Toolbar toolBar;
+
+    FirebaseFirestore firebaseFirestore;
+    FirebaseAuth firebaseAuth;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +57,9 @@ public class ChatActivity extends AppCompatActivity {
         viewPager = findViewById(R.id.fragmentContainer);
         pagerAdapter = new PagerAdapter(getSupportFragmentManager(), 3);
         viewPager.setAdapter(pagerAdapter);
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseFirestore = FirebaseFirestore.getInstance();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -84,7 +95,7 @@ public class ChatActivity extends AppCompatActivity {
                 break;
 
             case R.id.setting:
-                Toast.makeText(getApplicationContext(), "Settign is clicked", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Setting is clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.logout:
                 Intent intent2 = new Intent(ChatActivity.this, LoginActivity.class);
@@ -101,5 +112,28 @@ public class ChatActivity extends AppCompatActivity {
         menuInflater.inflate(R.menu.menu,menu);
 
         return true;
+    }
+
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
+        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
+        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+            }
+        });
     }
 }

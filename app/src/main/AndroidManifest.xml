@@ -15,7 +15,7 @@
             android:name=".SpecificChat"
             android:exported="true" />
         <activity
-            android:name=".profile.UpdateProfile"
+            android:name=".profile.UpdateProfileActivity"
             android:exported="true" />
         <activity
             android:name=".profile.ProfileActivity"

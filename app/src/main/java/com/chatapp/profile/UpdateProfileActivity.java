@@ -25,7 +25,6 @@ import com.chatapp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentReference;
@@ -40,7 +39,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UpdateProfile extends AppCompatActivity {
+public class UpdateProfileActivity extends AppCompatActivity {
 
     String currentName;
     Uri currentProfilePicUri, newProfilePicUri;
@@ -110,19 +109,19 @@ public class UpdateProfile extends AppCompatActivity {
 
                     progressbarofupdateprofile.setVisibility(View.VISIBLE);
                     updateprofilebutton.setEnabled(false);
-                    hideKeyboard(UpdateProfile.this);
+                    hideKeyboard(UpdateProfileActivity.this);
                     updateNameToFirestore("no image");
                 } else if ((currentName.equals(getnewusername.getText().toString()) && !currentProfilePicUri.equals(newProfilePicUri))) {
 
                     progressbarofupdateprofile.setVisibility(View.VISIBLE);
                     updateprofilebutton.setEnabled(false);
-                    hideKeyboard(UpdateProfile.this);
+                    hideKeyboard(UpdateProfileActivity.this);
                     updateImageOrBoth(false);
                 } else if ((!currentName.equals(getnewusername.getText().toString()) && !currentProfilePicUri.equals(newProfilePicUri))) {
 
                     progressbarofupdateprofile.setVisibility(View.VISIBLE);
                     updateprofilebutton.setEnabled(false);
-                    hideKeyboard(UpdateProfile.this);
+                    hideKeyboard(UpdateProfileActivity.this);
                     updateImageOrBoth(true);
                 }
 
@@ -258,4 +257,6 @@ public class UpdateProfile extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
     }
+
+
 }

@@ -4,7 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2703125" />
+        <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/ic_baseline_arrow_forward_24.xml" value="0.2703125" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/ic_baseline_person_24.xml" value="0.2703125" />
+        <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/drawable/messagebackgroun.xml" value="0.2703125" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/activity_chat.xml" value="0.16666666666666666" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/activity_login.xml" value="0.2" />
         <entry key="..\:/Work/Android/AndroidStudioProjects/AndroidStudioProjectsAll/ChatAppBasic/app/src/main/res/layout/activity_otp_authentication.xml" value="0.264" />
