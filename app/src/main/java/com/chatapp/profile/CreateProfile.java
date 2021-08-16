@@ -49,7 +49,7 @@ public class CreateProfile extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     FirebaseStorage firebaseStorage; // save images
-    FirebaseFirestore firebaseFirestore; // save users profile urls
+    FirebaseFirestore firebaseFirestore; // save users profile urls and chats
     FirebaseDatabase firebaseDatabase; // using to save user personal information
     String imageUriAccessToken;
 

@@ -34,6 +34,8 @@ public class ProfileActivity extends AppCompatActivity {
     Toolbar toolbarofviewprofile;
     ImageButton backbuttonofviewprofile;
 
+    Uri uriTemp;
+
     FirebaseAuth firebaseAuth;
     FirebaseStorage firebaseStorage; // save images
     FirebaseDatabase firebaseDatabase; // using to save user personal information
@@ -64,20 +66,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-     /*   firebaseDatabase.getReference().child(firebaseAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Toast.makeText(getApplicationContext(), "Error wile syncing", Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    System.out.println("aaaaaaaaaaaa "+String.valueOf(task.getResult().child("username")));
-                    viewusername.setText(String.valueOf(task.getResult().child("username").getValue()));
-                }
-            }
-        });*/
-
-        // or above method to get data fom realtime database. mainly Above method is to read once data
 
         DatabaseReference databaseReference = firebaseDatabase.getReference(firebaseAuth.getUid());
         databaseReference.addValueEventListener(new ValueEventListener() {
@@ -99,7 +87,8 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onSuccess(Uri uri) {
 
-                Picasso.get().load(uri).into(viewuserimageinimageview);
+                uriTemp=uri;
+                Picasso.get().load(uriTemp).into(viewuserimageinimageview);
 
             }
         });
@@ -107,9 +96,16 @@ public class ProfileActivity extends AppCompatActivity {
         movetoupdateprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ProfileActivity.this,UpdateProfile.class);
-                intent.putExtra("nameofuser",viewusername.getText().toString());
-                startActivity(intent);
+                if(uriTemp!=null && !viewusername.getText().toString().isEmpty()) {
+                    Intent intent = new Intent(ProfileActivity.this, UpdateProfile.class);
+                    intent.putExtra("nameCurrent", viewusername.getText().toString());
+                    intent.putExtra("uriCurrent", uriTemp);
+                    startActivity(intent);
+                    finish();
+                }else{
+                    Toast.makeText(getApplicationContext(), "Please wait until data sync", Toast.LENGTH_SHORT).show();
+
+                }
             }
         });
 
