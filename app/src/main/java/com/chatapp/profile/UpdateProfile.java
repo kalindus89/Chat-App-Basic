@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -49,6 +50,7 @@ public class UpdateProfile extends AppCompatActivity {
     ProgressBar progressbarofupdateprofile;
     CardView getnewuserimage;
     private static int PICK_IMAGE = 123;
+    ImageButton backbuttonofupdateprofile;;
 
     FirebaseAuth firebaseAuth;
     FirebaseFirestore firebaseFirestore;
@@ -67,6 +69,7 @@ public class UpdateProfile extends AppCompatActivity {
         updateprofilebutton = findViewById(R.id.updateprofilebutton);
         progressbarofupdateprofile = findViewById(R.id.progressbarofupdateprofile);
         getnewuserimage = findViewById(R.id.getnewuserimage);
+        backbuttonofupdateprofile = findViewById(R.id.backbuttonofupdateprofile);
 
         currentName = getIntent().getStringExtra("nameCurrent");
         currentProfilePicUri = getIntent().getParcelableExtra("uriCurrent");
@@ -79,6 +82,14 @@ public class UpdateProfile extends AppCompatActivity {
         getnewusername.setText(currentName);
         Picasso.get().load(currentProfilePicUri).into(getnewuserimageinimageview);
         newProfilePicUri = currentProfilePicUri;
+
+
+        backbuttonofupdateprofile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         getnewuserimageinimageview.setOnClickListener(new View.OnClickListener() {
             @Override
