@@ -24,6 +24,11 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Locale;
+
 public class ChatActivity extends AppCompatActivity {
 
     TabLayout tabLayout;
@@ -41,6 +46,7 @@ public class ChatActivity extends AppCompatActivity {
         setContentView(R.layout.activity_chat);
 
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         chats = findViewById(R.id.chats);
         status = findViewById(R.id.status);
@@ -108,8 +114,8 @@ public class ChatActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater menuInflater=getMenuInflater();
-        menuInflater.inflate(R.menu.menu,menu);
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu, menu);
 
         return true;
     }
@@ -118,8 +124,8 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         super.onStop();
-        DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
-        documentReference.update("status","Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
+        documentReference.update("status", "Offline").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
             }
@@ -129,8 +135,8 @@ public class ChatActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        DocumentReference documentReference=firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
-        documentReference.update("status","Online").addOnSuccessListener(new OnSuccessListener<Void>() {
+        DocumentReference documentReference = firebaseFirestore.collection("Users").document(firebaseAuth.getUid());
+        documentReference.update("status", "Online").addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
             }

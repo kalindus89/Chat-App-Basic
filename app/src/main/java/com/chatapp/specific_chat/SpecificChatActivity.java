@@ -30,7 +30,10 @@ import com.squareup.picasso.Picasso;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 
 public class SpecificChatActivity extends AppCompatActivity {
 
@@ -88,8 +91,14 @@ public class SpecificChatActivity extends AppCompatActivity {
         mrecievername = intent.getStringExtra("name");
 
         //to identify who send and received the chat
-        senderroom = msenderuid + mrecieveruid;
-        recieverroom = mrecieveruid + msenderuid;
+
+
+        List<String> commonChatRoomId = new ArrayList();
+        commonChatRoomId.add(msenderuid.toLowerCase(Locale.ROOT));
+        commonChatRoomId.add(mrecieveruid.toLowerCase(Locale.ROOT));
+        Collections.sort(commonChatRoomId);
+
+        senderroom=commonChatRoomId.get(0)+commonChatRoomId.get(1);
 
         backbuttonofspecificchat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -127,13 +136,15 @@ public class SpecificChatActivity extends AppCompatActivity {
                             .setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            firebaseDatabase.getReference().child("chats").child(recieverroom).child("messages").push()
-                                    .setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
 
+                            // Call smooth scroll to bottom
+                            recyclerviewofspecific.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    recyclerviewofspecific.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
                                 }
                             });
+
                         }
                     });
 
@@ -169,6 +180,7 @@ public class SpecificChatActivity extends AppCompatActivity {
 
             }
         });
+
 
 
     }
