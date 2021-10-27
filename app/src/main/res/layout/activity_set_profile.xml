@@ -65,7 +65,6 @@
         android:layout_below="@id/getusername"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
-
         android:background="#25d366"
         android:text="Save Profile"
 
