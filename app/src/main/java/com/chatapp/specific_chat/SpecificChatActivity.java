@@ -203,7 +203,7 @@ public class SpecificChatActivity extends AppCompatActivity {
 
     private void sendNotificationToFriend(String enteredMessage) {
 
-        Data data = new Data("Chat App", mrecievername+": "+enteredMessage);
+        Data data = new Data("Chat App",enteredMessage);
         NotificationSender sender = new NotificationSender(data, messagingToken);
         //  Toast.makeText(getApplicationContext(), "111111 ", Toast.LENGTH_LONG).show();
         apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
