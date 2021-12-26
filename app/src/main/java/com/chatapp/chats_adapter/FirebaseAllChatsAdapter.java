@@ -53,6 +53,7 @@ public class FirebaseAllChatsAdapter extends FirestoreRecyclerAdapter<ChatsModel
                 intent.putExtra("name",model.getName());
                 intent.putExtra("receiveruid",model.getUid());
                 intent.putExtra("imageuri",model.getImage());
+                intent.putExtra("messagingToken",model.getMessagingToken());
                 context.startActivity(intent);
             }
         });

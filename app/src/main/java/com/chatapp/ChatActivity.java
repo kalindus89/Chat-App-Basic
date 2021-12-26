@@ -17,17 +17,23 @@ import android.widget.Toast;
 
 import com.chatapp.login_signup.LoginActivity;
 import com.chatapp.profile.ProfileActivity;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.tabs.TabItem;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 public class ChatActivity extends AppCompatActivity {
 
@@ -89,6 +95,53 @@ public class ChatActivity extends AppCompatActivity {
         });
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
 
+
+        updateFirebaseToken();
+
+    }
+
+
+    public void updateFirebaseToken() {
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Toast.makeText(getApplicationContext(), "token receive failed", Toast.LENGTH_SHORT).show();
+
+                            return;
+                        }
+
+                        String refreshToken = task.getResult();
+
+                        if (!refreshToken.equals(new SessionManagement().getFBToken(getApplicationContext()))) {
+
+                            DocumentReference nycRef = FirebaseFirestore.getInstance().document("Users/" + FirebaseAuth.getInstance().getCurrentUser().getUid());
+                            nycRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+                                    DocumentSnapshot document = task.getResult();
+                                    if (document.exists()) {
+                                        Map<String, Object> note = new HashMap<>();
+                                        note.put("messagingToken", refreshToken);
+
+                                        nycRef.update(note).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                new SessionManagement().setFBToken(getApplicationContext(), refreshToken);
+                                            }
+                                        });
+
+                                    }
+
+                                }
+                            });
+
+                        }
+                    }
+                });
     }
 
     @Override

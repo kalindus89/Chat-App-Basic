@@ -6,15 +6,17 @@ public class ChatsModel {
     private String image;
     private String uid;
     private String status;
+    private String messagingToken;
 
     public ChatsModel() {
     }
 
-    public ChatsModel(String name, String image, String uid, String status) {
+    public ChatsModel(String name, String image, String uid, String status, String messagingToken) {
         this.name = name;
         this.image = image;
         this.uid = uid;
         this.status = status;
+        this.messagingToken = messagingToken;
     }
 
     public String getName() {
@@ -47,6 +49,14 @@ public class ChatsModel {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getMessagingToken() {
+        return messagingToken;
+    }
+
+    public void setMessagingToken(String messagingToken) {
+        this.messagingToken = messagingToken;
     }
 }
 

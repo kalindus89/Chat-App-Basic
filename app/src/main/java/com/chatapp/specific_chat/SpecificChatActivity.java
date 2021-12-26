@@ -17,6 +17,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.chatapp.R;
+import com.chatapp.notification_manager.send_notification.APIService;
+import com.chatapp.notification_manager.send_notification.Client;
+import com.chatapp.notification_manager.send_notification.Data;
+import com.chatapp.notification_manager.send_notification.MyResponse;
+import com.chatapp.notification_manager.send_notification.NotificationSender;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -25,6 +30,9 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
@@ -34,6 +42,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class SpecificChatActivity extends AppCompatActivity {
 
@@ -51,7 +63,7 @@ public class SpecificChatActivity extends AppCompatActivity {
     String mrecievername, sendername, mrecieveruid, msenderuid;
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
-    String senderroom, recieverroom;
+    String senderroom, recieverroom,messagingToken;
 
     String currenttime;
     Calendar calendar;
@@ -59,6 +71,8 @@ public class SpecificChatActivity extends AppCompatActivity {
 
     SpecificMessageAdapter messagesAdapter;
     ArrayList<SpecificChatModel> messagesArrayList;
+
+    APIService apiService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,9 +103,10 @@ public class SpecificChatActivity extends AppCompatActivity {
         msenderuid = firebaseAuth.getUid();
         mrecieveruid = intent.getStringExtra("receiveruid");
         mrecievername = intent.getStringExtra("name");
+        messagingToken = intent.getStringExtra("messagingToken");
 
         //to identify who send and received the chat
-
+        apiService = Client.getClient("https://fcm.googleapis.com/").create(APIService.class);
 
         List<String> commonChatRoomId = new ArrayList();
         commonChatRoomId.add(msenderuid.toLowerCase(Locale.ROOT));
@@ -142,6 +157,9 @@ public class SpecificChatActivity extends AppCompatActivity {
                                 @Override
                                 public void run() {
                                     recyclerviewofspecific.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
+
+                                    sendNotificationToFriend(enteredmessage);
+
                                 }
                             });
 
@@ -181,9 +199,31 @@ public class SpecificChatActivity extends AppCompatActivity {
             }
         });
 
-
-
     }
+
+    private void sendNotificationToFriend(String enteredMessage) {
+
+        Data data = new Data("Chat App", mrecievername+": "+enteredMessage);
+        NotificationSender sender = new NotificationSender(data, messagingToken);
+        //  Toast.makeText(getApplicationContext(), "111111 ", Toast.LENGTH_LONG).show();
+        apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
+            @Override
+            public void onResponse(Call<MyResponse> call, Response<MyResponse> response) {
+                if (response.code() == 200) {
+
+                    if (response.body().success != 1) {
+                        Toast.makeText(getApplicationContext(), "Failed ", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<MyResponse> call, Throwable t) {
+
+            }
+        });
+    }
+
     @Override
     public void onStart() {
         super.onStart();

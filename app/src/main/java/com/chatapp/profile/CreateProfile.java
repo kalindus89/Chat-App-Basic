@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.chatapp.ChatActivity;
 import com.chatapp.R;
+import com.chatapp.SessionManagement;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -176,6 +177,9 @@ public class CreateProfile extends AppCompatActivity {
         userdata.put("image", imageUriAccessToken);
         userdata.put("uid", firebaseAuth.getUid());
         userdata.put("status", "Online");
+        userdata.put("messagingToken", "no_token");
+
+        new SessionManagement().setFBToken(getApplicationContext(), "no_token");
 
         documentReference.set(userdata).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
