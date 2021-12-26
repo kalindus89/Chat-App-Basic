@@ -157,7 +157,8 @@ public class ChatActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Setting is clicked", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.logout:
-                Intent intent2 = new Intent(ChatActivity.this, LoginActivity.class);
+                FirebaseAuth.getInstance().signOut();
+                Intent intent2 = new Intent(ChatActivity.this, SplashActivity.class);
                 startActivity(intent2);
                 break;
         }
