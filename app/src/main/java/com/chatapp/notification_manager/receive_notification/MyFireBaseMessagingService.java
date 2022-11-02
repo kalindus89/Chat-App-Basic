@@ -42,7 +42,7 @@ public class MyFireBaseMessagingService extends FirebaseMessagingService {
 
     private void showNotification() {
 
-       // System.out.println("aaaaaaaaaaa "+title+" "+message);
+        System.out.println("aaaaaaaaaaa "+title+" "+message);
         Intent intent = new Intent(this, ChatActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent,

@@ -14,7 +14,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
-public class SpecificMessageAdapter extends RecyclerView.Adapter {
+public class SpecificMessageAdapter extends RecyclerView.Adapter { // because two layouts using
 
     Context context;
     ArrayList<SpecificChatModel> messagesArrayList;

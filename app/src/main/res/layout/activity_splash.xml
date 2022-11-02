@@ -37,7 +37,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
         android:fontFamily="@font/raleway"
-        android:text="CHAT PROJECTS"
+        android:text="CHAT PROJECT."
         android:textColor="#25d366"
         android:textSize="18sp"
         android:textStyle="bold">

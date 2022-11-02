@@ -63,7 +63,7 @@ public class SpecificChatActivity extends AppCompatActivity {
     String mrecievername, sendername, mrecieveruid, msenderuid;
     private FirebaseAuth firebaseAuth;
     FirebaseDatabase firebaseDatabase;
-    String senderroom, recieverroom,messagingToken;
+    String senderroom, recieverroom, messagingToken;
 
     String currenttime;
     Calendar calendar;
@@ -91,7 +91,6 @@ public class SpecificChatActivity extends AppCompatActivity {
         recyclerviewofspecific = findViewById(R.id.recyclerviewofspecific);
 
 
-
         intent = getIntent();
 
         firebaseAuth = FirebaseAuth.getInstance();
@@ -113,7 +112,7 @@ public class SpecificChatActivity extends AppCompatActivity {
         commonChatRoomId.add(mrecieveruid.toLowerCase(Locale.ROOT));
         Collections.sort(commonChatRoomId);
 
-        senderroom=commonChatRoomId.get(0)+commonChatRoomId.get(1);
+        senderroom = commonChatRoomId.get(0) + commonChatRoomId.get(1);
 
         backbuttonofspecificchat.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -149,22 +148,22 @@ public class SpecificChatActivity extends AppCompatActivity {
 
                     firebaseDatabase.getReference().child("chats").child(senderroom).child("messages").push()
                             .setValue(messages).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-
-                            // Call smooth scroll to bottom
-                            recyclerviewofspecific.post(new Runnable() {
                                 @Override
-                                public void run() {
-                                    recyclerviewofspecific.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
+                                public void onComplete(@NonNull Task<Void> task) {
 
-                                    sendNotificationToFriend(enteredmessage);
+                                    // Call smooth scroll to bottom
+                                    recyclerviewofspecific.post(new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            recyclerviewofspecific.smoothScrollToPosition(messagesAdapter.getItemCount() - 1);
+
+                                            sendNotificationToFriend(enteredmessage);
+
+                                        }
+                                    });
 
                                 }
                             });
-
-                        }
-                    });
 
                     getmessage.setText(null);
                 }
@@ -172,22 +171,21 @@ public class SpecificChatActivity extends AppCompatActivity {
             }
         });
 
-        messagesArrayList=new ArrayList<>();
-        LinearLayoutManager linearLayoutManager=new LinearLayoutManager(this);
+        messagesArrayList = new ArrayList<>();
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setStackFromEnd(true); // start list from end
         recyclerviewofspecific.setLayoutManager(linearLayoutManager);
-        messagesAdapter=new SpecificMessageAdapter(SpecificChatActivity.this,messagesArrayList);
+        messagesAdapter = new SpecificMessageAdapter(SpecificChatActivity.this, messagesArrayList);
         recyclerviewofspecific.setAdapter(messagesAdapter);
 
 
-        DatabaseReference databaseReference=firebaseDatabase.getReference().child("chats").child(senderroom).child("messages");
+        DatabaseReference databaseReference = firebaseDatabase.getReference().child("chats").child(senderroom).child("messages");
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 messagesArrayList.clear();
-                for(DataSnapshot snapshot1:snapshot.getChildren())
-                {
-                    SpecificChatModel messages=snapshot1.getValue(SpecificChatModel.class);
+                for (DataSnapshot snapshot1 : snapshot.getChildren()) {
+                    SpecificChatModel messages = snapshot1.getValue(SpecificChatModel.class);
                     messagesArrayList.add(messages);
                 }
                 messagesAdapter.notifyDataSetChanged();
@@ -203,7 +201,7 @@ public class SpecificChatActivity extends AppCompatActivity {
 
     private void sendNotificationToFriend(String enteredMessage) {
 
-        Data data = new Data("Chat App","New Chat: "+enteredMessage);
+        Data data = new Data("Chat App", "New Chat: " + enteredMessage);
         NotificationSender sender = new NotificationSender(data, messagingToken);
         //  Toast.makeText(getApplicationContext(), "111111 ", Toast.LENGTH_LONG).show();
         apiService.sendNotification(sender).enqueue(new Callback<MyResponse>() {
@@ -235,8 +233,7 @@ public class SpecificChatActivity extends AppCompatActivity {
     public void onStop() {
         super.onStop();
 
-        if(messagesAdapter!=null)
-        {
+        if (messagesAdapter != null) {
             messagesAdapter.notifyDataSetChanged();
         }
     }
