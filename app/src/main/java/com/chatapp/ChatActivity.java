@@ -103,17 +103,19 @@ public class ChatActivity extends AppCompatActivity {
 
     public void updateFirebaseToken() {
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
                     public void onComplete(@NonNull Task<String> task) {
                         if (!task.isSuccessful()) {
+
                             Toast.makeText(getApplicationContext(), "token receive failed", Toast.LENGTH_SHORT).show();
 
+                            System.out.println("aaaaaaaaaaaaaaa "+task.getException().toString());
                             return;
                         }
 
                         String refreshToken = task.getResult();
+                        System.out.println("aaaaaaaaaaaaaaa "+refreshToken);
 
                         if (!refreshToken.equals(new SessionManagement().getFBToken(getApplicationContext()))) {
 
